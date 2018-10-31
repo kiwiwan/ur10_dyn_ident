@@ -33,8 +33,8 @@ namespace SimControll
 	std_msgs::Float64MultiArray jointCmd;
 
 
-	Eigen::Matrix<double, UR10Controller::JOINT_NUM, 1> jointAngle,jointVel;
-	Eigen::Matrix<double, UR10Controller::JOINT_NUM, 1> jointTorque;
+	Eigen::Matrix<double, OnedofController::JOINT_NUM, 1> jointAngle,jointVel;
+	Eigen::Matrix<double, OnedofController::JOINT_NUM, 1> jointTorque;
 	Eigen::Matrix<double, 6, 1> endFT;
 
 
@@ -57,7 +57,7 @@ namespace SimControll
 
 	void jointAngleCallback(const std_msgs::Float64MultiArray::ConstPtr& joint)
 	{
-		for(int i = 0; i < 6; ++i)
+		for(int i = 0; i < OnedofController::JOINT_NUM; ++i)
 			jointAngle[i]=joint->data[i];
 		// std::cout<< jointAngle[2] <<std::endl;
 		// std::cout<< "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" <<std::endl;
@@ -65,7 +65,7 @@ namespace SimControll
 
 	void jointVelCallback(const std_msgs::Float64MultiArray::ConstPtr& vel)
 	{
-		for(int i = 0; i < 6; ++i)
+		for(int i = 0; i < OnedofController::JOINT_NUM; ++i)
 			jointVel[i]=vel->data[i];
 		// std::cout<< jointSensor[1] <<std::endl;
 		// std::cout<< "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" <<std::endl;
@@ -81,7 +81,7 @@ namespace SimControll
 
 	void jointTorqueCallback(const std_msgs::Float64MultiArray::ConstPtr& torq)
 	{
-		for(int i = 0; i < 6; ++i)
+		for(int i = 0; i < OnedofController::JOINT_NUM; ++i)
 			jointTorque[i]=torq->data[i];
 		// std::cout<< jointTorque <<std::endl;
 		// std::cout<< "&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&" <<std::endl;
@@ -112,9 +112,9 @@ namespace SimControll
 		
 	}
 
-	void simControll(Eigen::Matrix<double, UR10Controller::JOINT_NUM, 1> jointValue)//
+	void simControll(Eigen::Matrix<double, OnedofController::JOINT_NUM, 1> jointValue)//
 	{
-	    for(unsigned i=0;i<6;i++)
+	    for(unsigned i=0;i<1;i++)
 		{
 			jointCmd.data[i]=jointValue[i];
 		}
