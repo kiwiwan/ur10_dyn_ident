@@ -222,16 +222,16 @@ void OnedofController::onedof_initRobot()
 	///sousa 2014 IROS result(wls)
 	/////robot dynamic param in D-H coordinate
 	////from using vrep joint pid controll excit and mesured 
-	double L_1xx    =    0.0;
-	double L_1xy    =    0.0;
-	double L_1xz    =    0.0;
-	double L_1yy    =    0.0;
-	double L_1yz    =    0.0;
-	double L_1zz    =    4.632148991886592;
-	double l_1x    =    -0.0006605847348112476;
-	double l_1y    =    -0.07980563043671064;
-	double l_1z    =    0.0;
-	double m_1    =    0.0;
+	// double L_1xx    =    0.0;
+	// double L_1xy    =    0.0;
+	// double L_1xz    =    0.0;
+	// double L_1yy    =    0.0;
+	// double L_1yz    =    0.0;
+	// double L_1zz    =    4.632148991886592;
+	// double l_1x    =    -0.0006605847348112476;
+	// double l_1y    =    -0.07980563043671064;
+	// double l_1z    =    0.0;
+	// double m_1    =    0.0;
 
 
 	////from using RBDyn model control excit and mesured in vrep 
