@@ -155,15 +155,21 @@ void torqueControll(double pos)
 
 void trajExcite()
 {
+	mx64->getSensorData();
+
 	if(call_count < q_excit_count)
 	{
+		// mx64->goalPos = q_excit[call_count]*TO_DEGREE;
+		// mx64->setGoalPositon(mx64->goalPos);
+
 		mx64->goalPos = q_excit[call_count]*TO_DEGREE;
-		mx64->setGoalPositon(mx64->goalPos);
+		mx64->goalTorque = modelJointTrajControll();
+		mx64->setGoalTorque(mx64->goalTorque);
 	}
 	// printf("timeCount= %d\n",mWalk.timeCount);
 
 
-    mx64->getSensorData();	
+    	
 
 	if(call_count > 250 && call_count <= q_excit_count)
 	mx64_traj_results	<<"  "<<mx64->curPos*TO_RADIAN<<",  "<<mx64->curVel*TO_RADIAN
@@ -173,7 +179,7 @@ void trajExcite()
 
 void readExciteTraj()
 {
-	ifstream trajFile("/home/kiwi/soft/learn/IDIM/sausa/ur10_dyn_ident/data/trajectories/mx64_traj4.csv", ios::in);
+	ifstream trajFile("/home/kiwi/soft/learn/IDIM/sausa/ur10_dyn_ident/data/trajectories/mx64_traj2.csv", ios::in);
 
 	string lineStr;
 	int i = 0;
@@ -197,14 +203,14 @@ void readExciteTraj()
 	q_excit_count = i;
 	// cout << q_excit_count << endl;
 
-	mx64_traj_results.open("/home/kiwi/soft/learn/IDIM/sausa/ur10_dyn_ident/data/recdata/mx64_traj4_results.csv", ios::out);
+	mx64_traj_results.open("/home/kiwi/soft/learn/IDIM/sausa/ur10_dyn_ident/data/recdata/mx64_traj2_results.csv", ios::out);
 }
 
 
 // model-base joint controll
 double modelJointTrajControll()
 {
-	
+	//not rod
 	double L_1xx    =    0.0;
 	double L_1xy    =    0.0;
 	double L_1xz    =    0.0;
@@ -220,14 +226,61 @@ double modelJointTrajControll()
 	double fc_1    =    0.014173811653391058;
 	double fo_1    =    -0.013180292286075014;
 
+	// //rod position
+	// double L_1xx    =    0.0;
+	// double L_1xy    =    0.0;
+	// double L_1xz    =    0.0;
+	// double L_1yy    =    0.0;
+	// double L_1yz    =    0.0;
+	// double L_1zz    =    0.0004462486742905737;
+	// double l_1x    =    0.00044303093429114924;
+	// double l_1y    =    -0.008881753670799363;
+	// double l_1z    =    0.0;
+	// double m_1    =    0.0;
+	// double Ia_1    =    0.0004462486742905737;
+	// double fv_1    =    0.013037716175157945;
+	// double fc_1    =    0.08064649035951603;
+	// double fo_1    =    0.003962271197137713;
 
+
+	// // //rod torque
+	// double L_1xx    =    0.0;
+	// double L_1xy    =    0.0;
+	// double L_1xz    =    0.0;
+	// double L_1yy    =    0.0;
+	// double L_1yz    =    0.0;
+	// double L_1zz    =    0.003109900136909342;
+	// double l_1x    =    0.00043356208022872483;
+	// double l_1y    =    -0.013987717373923505;
+	// double l_1z    =    0.0;
+	// double m_1    =    0.0;
+	// double Ia_1    =    0.003109900136909342;
+	// double fv_1    =    0.003969420734859417;
+	// double fc_1    =    0.08492773985115729;
+	// double fo_1    =    -0.011732120955107452;
+
+	// // //rod cad  and friction identify
+	// double L_1xx    =    0.0;
+	// double L_1xy    =    0.0;
+	// double L_1xz    =    0.0;
+	// double L_1yy    =    0.0;
+	// double L_1yz    =    0.0;
+	// double L_1zz    =    0.005513919;
+	// double l_1x    =    0.0;
+	// double l_1y    =    -0.01475;
+	// double l_1z    =    0.0;
+	// double m_1    =    0.0;
+	// double Ia_1    =    0.002138725039663255060;
+	// double fv_1    =    0.05257446069515255699;
+	// double fc_1    =    0.01304203703264694356;
+	// double fo_1    =    -0.009416510700965186401;
 
 
 	double kp=500;  		//500
 	double kd=kp/15;  	//kp/15
 
-	double kp1=8;       	//0.8
-	double kd1=kp1/10.0;	//kp1/20.0
+	double kp1=8;       	//8
+	double kd1=kp1/20.0;	//kp1/10.0
 
 	double q,qref;
 	double dq,dqref;

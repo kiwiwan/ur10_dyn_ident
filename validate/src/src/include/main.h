@@ -25,7 +25,7 @@ double dqold = 0.;
 double qrefOld = 0.;
 double dqrefOld = 0.;
 
-double timeStep = 0.012;//20 ms
+double timeStep = 0.02;//20 ms
 
 ros::Publisher goalPos_pub;
 ros::Publisher curPos_pub;

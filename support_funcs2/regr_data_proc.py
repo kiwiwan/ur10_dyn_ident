@@ -360,3 +360,33 @@ def gen_regr_matrices(rbt, q, dq, ddq, tau):
     del H_S
 
     return W, omega, Q1, R1, rho1
+
+
+def gen_friction_regr_matrices(rbt, q, dq, ddq, tau):
+
+    global sin, cos, sign
+    sin = numpy.sin
+    cos = numpy.cos
+    sign = numpy.sign
+    
+    sn = q.shape[0]
+
+    H_S = numpy.matrix( numpy.zeros( ( rbt.dof*sn, 4 ) ) )
+    tau_S = numpy.matrix( numpy.zeros( rbt.dof*sn ) ).T
+
+    for i in range(sn):
+        H_S[ i*rbt.dof : i*rbt.dof+rbt.dof , : ] = numpy.array([ddq[i] ,dq[i],sign(dq[i]),1.]).reshape(rbt.dof,4)   #[Ia , fv , fc , fo]
+
+    for i in range(sn):
+        tau_S[ i*rbt.dof : i*rbt.dof+rbt.dof ] = numpy.mat( tau[i] ).T
+
+    omega = tau_S
+    W = H_S
+   
+    Q1,R1 = numpy.linalg.qr(W)
+    rho1 = Q1.T*omega
+    del H_S
+
+    return W, omega, Q1, R1, rho1
+
+

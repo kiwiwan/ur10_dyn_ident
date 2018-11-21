@@ -29,6 +29,8 @@ const double MX64::RATIO_TORQUE2VALUE = 1.0/(0.00336*1.1619);
 
 MX64::MX64(const char *port_name)
 {
+	goalPos = 0.;
+	goalTorque = 0.;
 	
 	getHandlerAndOpenPort(port_name);
 	// portHandler->setBaudRate(4000000);
