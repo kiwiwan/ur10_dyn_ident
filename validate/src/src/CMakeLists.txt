@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(mx64_idim_test)
+project(ljhn_idim)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -118,10 +118,10 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include/
-  # ${CMAKE_CURRENT_SOURCE_DIR}/include/RBDyn/
-  # ${CMAKE_CURRENT_SOURCE_DIR}/include/rbdyn/
-  # ${CMAKE_CURRENT_SOURCE_DIR}/include/SpaceVecAlg/
-  ${CMAKE_CURRENT_SOURCE_DIR}/include/dynamixel_sdk
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/RBDyn/
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/rbdyn/
+  ${CMAKE_CURRENT_SOURCE_DIR}/include/SpaceVecAlg/
+
 # include
   ${catkin_INCLUDE_DIRS}
   ${EIGEN_INCLUDE_DIR}
@@ -140,28 +140,25 @@ include_directories(
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 
-add_definitions(-std=c++11 )
+add_definitions(-std=c++14 )
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 add_executable(${PROJECT_NAME}_node  
-              src/main.cpp            src/MX64_V2.cpp                src/Util.cpp
-              # src/SimControll.cpp   src/OnedofController.cpp   #src/UR10Controller.cpp
+              src/main.cpp             src/SimControll.cpp             src/Util.cpp
 
-              ###RBDyn
-              # src/RBDyn/MultiBody.cpp  src/RBDyn/MultiBodyConfig.cpp   src/RBDyn/MultiBodyGraph.cpp
-              # src/RBDyn/FK.cpp         src/RBDyn/IK.cpp         src/RBDyn/Jacobian.cpp
-              # src/RBDyn/FA.cpp         src/RBDyn/FD.cpp         src/RBDyn/IS.cpp 
-              # src/RBDyn/FV.cpp         src/RBDyn/ID.cpp         src/RBDyn/IDIM.cpp
+              src/LjhnController.cpp
+
+          ####RBDyn
+              src/RBDyn/MultiBody.cpp  src/RBDyn/MultiBodyConfig.cpp   src/RBDyn/MultiBodyGraph.cpp
+              src/RBDyn/FK.cpp         src/RBDyn/IK.cpp                src/RBDyn/Jacobian.cpp
+              src/RBDyn/FA.cpp         src/RBDyn/FD.cpp                src/RBDyn/IS.cpp 
+              src/RBDyn/FV.cpp         src/RBDyn/ID.cpp                src/RBDyn/IDIM.cpp
               
-              # src/RBDyn/Momentum.cpp   src/RBDyn/CoM.cpp        src/RBDyn/ZMP.cpp
-              # src/RBDyn/VisServo.cpp   src/RBDyn/Coriolis.cpp   src/RBDyn/EulerIntegration.cpp
+              src/RBDyn/Momentum.cpp   src/RBDyn/CoM.cpp               src/RBDyn/ZMP.cpp
+              src/RBDyn/VisServo.cpp   src/RBDyn/Coriolis.cpp          src/RBDyn/EulerIntegration.cpp
 
-              ###dynamixel_sdk
-              src/dynamixel_sdk/group_bulk_read.cpp   src/dynamixel_sdk/packet_handler.cpp        src/dynamixel_sdk/port_handler_mac.cpp
-              src/dynamixel_sdk/group_bulk_write.cpp  src/dynamixel_sdk/port_handler_arduino.cpp  src/dynamixel_sdk/port_handler_windows.cpp
-              src/dynamixel_sdk/group_sync_read.cpp   src/dynamixel_sdk/port_handler.cpp          src/dynamixel_sdk/protocol1_packet_handler.cpp
-              src/dynamixel_sdk/group_sync_write.cpp  src/dynamixel_sdk/port_handler_linux.cpp    src/dynamixel_sdk/protocol2_packet_handler.cpp
+
 
                             )
 
@@ -177,7 +174,7 @@ add_executable(${PROJECT_NAME}_node
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-target_link_libraries(${PROJECT_NAME}_node -ldl  -lrt
+target_link_libraries(${PROJECT_NAME}_node -ldl
    ${catkin_LIBRARIES}
 	 ${EIGEN_LIBRARIES}
  )

@@ -4,8 +4,7 @@
 #include <std_msgs/Int32.h>
 #include <sensor_msgs/Imu.h>
 // #include "Eigen.h"
-#include "UR10Controller.h"
-#include "OnedofController.h"
+#include "LjhnController.h"
 // #include "EigenUtil.h"
 
 using namespace ljnoid;
@@ -25,16 +24,18 @@ namespace SimControll
 
 
 	extern std_msgs::Float64MultiArray jointCmd;
+	extern std_msgs::Float64MultiArray footCop;
 
 
-	extern Eigen::Matrix<double, OnedofController::JOINT_NUM, 1> jointAngle,jointVel;
-	extern Eigen::Matrix<double, OnedofController::JOINT_NUM, 1> jointTorque;
-	extern Eigen::Matrix<double, 6, 1> endFT;
+	extern Eigen::Matrix<double, LjhnController::JOINT_NUM, 1> jointAngle,jointVel;
+	extern Eigen::Matrix<double, LjhnController::FLOATING_CONFIG_NUM, 1> basePos;//quaternion[w x y z]  translation[x y z]
+	extern Eigen::Matrix<double, 6, 1> leftFT;//torque[x y z] force[x y z]
+	extern Eigen::Matrix<double, 6, 1> rightFT;//torque[x y z] force[x y z]
 
 
 	void simInit();
 
-	void simControll(Eigen::Matrix<double, OnedofController::JOINT_NUM, 1> jointValue);
+	void simControll(Eigen::Matrix<double, LjhnController::JOINT_NUM, 1> jointValue);
 }
 
 
