@@ -87,10 +87,10 @@ void* control_thread(void* ptr)
 	ljhnCon->ljhnmbc.gravity=Eigen::Vector3d(0.,0.,9.81);
 	ljhnIDy.inverseDynamics(ljhnCon->ljhn,ljhnCon->ljhnmbc);
 	printf("init leftLeg jointTorques:\n %10f %10f %10f %10f %10f %10f\n",ljhnCon->ljhnmbc.jointTorque[1][0],ljhnCon->ljhnmbc.jointTorque[2][0],ljhnCon->ljhnmbc.jointTorque[3][0],ljhnCon->ljhnmbc.jointTorque[4][0],ljhnCon->ljhnmbc.jointTorque[5][0],ljhnCon->ljhnmbc.jointTorque[6][0]);
-	printf("init rightLeg jointTorques:\n %10f %10f %10f %10f %10f %10f\n",ljhnCon->ljhnmbc.jointTorque[8][0],ljhnCon->ljhnmbc.jointTorque[9][0],ljhnCon->ljhnmbc.jointTorque[10][0],ljhnCon->ljhnmbc.jointTorque[11][0],ljhnCon->ljhnmbc.jointTorque[12][0],ljhnCon->ljhnmbc.jointTorque[13][0]);
+	// printf("init rightLeg jointTorques:\n %10f %10f %10f %10f %10f %10f\n",ljhnCon->ljhnmbc.jointTorque[8][0],ljhnCon->ljhnmbc.jointTorque[9][0],ljhnCon->ljhnmbc.jointTorque[10][0],ljhnCon->ljhnmbc.jointTorque[11][0],ljhnCon->ljhnmbc.jointTorque[12][0],ljhnCon->ljhnmbc.jointTorque[13][0]);
 	
 // std::cout << "bodyPosW[6] : " <<  std::endl<<  sva::conversions::toHomogeneous(ljhnCon->ljhnmbc.bodyPosW[6]) << std::endl;
-// 	std::cout << "bodyPosW[13] : " <<  std::endl<<  sva::conversions::toHomogeneous(ljhnCon->ljhnmbc.bodyPosW[13]) << std::endl;
+// // 	std::cout << "bodyPosW[13] : " <<  std::endl<<  sva::conversions::toHomogeneous(ljhnCon->ljhnmbc.bodyPosW[13]) << std::endl;
 // exit(0);
 
 	for(int j=0;j<2;j++)    //wait the sensor value norm
@@ -114,8 +114,8 @@ void* control_thread(void* ptr)
 		if(count <= 400)
 		{
 			Eigen::Matrix<double, LjhnController::JOINT_NUM, 1> q = Eigen::Matrix<double, LjhnController::JOINT_NUM, 1>::Zero();
-			// q = Eigen::Matrix<double, LjhnController::JOINT_NUM, 1>::Constant(0.);
-			q = Eigen::Matrix<double, LjhnController::JOINT_NUM, 1>::Constant(1.)*90*sin(PI*(cos(count*PI/200+PI)+1))*PI/180.;
+			q = Eigen::Matrix<double, LjhnController::JOINT_NUM, 1>::Constant(0.);
+			// q = Eigen::Matrix<double, LjhnController::JOINT_NUM, 1>::Constant(1.)*90*sin(PI*(cos(count*PI/100+PI)+1))*PI/180.;
 			// q.block<6,1>(6,0) = Eigen::Matrix<double, 6, 1>::Constant(1.)*90*sin(PI*(cos(count*PI/100+PI)+1))*PI/180.;
 			// q(1,0) = 90*sin(PI*(cos(count*PI/100+PI)+1))*PI/180.;
 			ljhnCon->ljhnmbc.q=rbd::sVectorToParam(ljhnCon->ljhn,q);
