@@ -1,4 +1,4 @@
-Experimental Identification of Physically Feasible Dynamic Parameters of the 7-link WAM™ Robot using LMI–SDP Techniques
+Experimental Identification of Physically Feasible Dynamic Parameters of ur10 Robot using LMI–SDP Techniques
 =======================================================================================================================
 
 [![DOI](https://zenodo.org/badge/920/cdsousa/wam7_dyn_ident.png)](http://dx.doi.org/10.5281/zenodo.10537)
